@@ -16,7 +16,15 @@ def db():
 
 
 # ---------------------- ورود ----------------------
+@app.route("/", methods=["GET", "POST"])
+def login():
+    try:
+        conn = db()
+        conn.close()
+    except Exception as e:
+        return str(e)
 
+    return "OK"
 @app.route("/", methods=["GET", "POST"])
 def login():
     if request.method == "POST":
@@ -245,5 +253,6 @@ def confirm(order_id):
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000, debug=True)
+
 
 
