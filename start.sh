@@ -1,3 +1,3 @@
 #!/bin/bash
-python web/app.py &
-python bot/bot.py
+python3 web/app.py &
+python3 bot/bot.py
