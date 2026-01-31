@@ -192,10 +192,10 @@ def api_send_download():
     download_link = data["download_link"]
 
     # ارسال به بات
-    requests.post("http://127.0.0.1:8000/send_download", json={
-        "user_id": user_id,
-        "download_link": download_link
-    })
+   # requests.post("http://127.0.0.1:8000/send_download", json={
+     #   "user_id": user_id,
+     #   "download_link": download_link
+    #})
 
     return jsonify({"status": "sent"})
 
@@ -233,10 +233,10 @@ def confirm(order_id):
     conn.commit()
     conn.close()
 
-    requests.post("http://127.0.0.1:5000/api/send_download", json={
-        "user_id": user_id,
-        "download_link": download_link
-    })
+   # requests.post("http://127.0.0.1:5000/api/send_download", json={
+   #     "user_id": user_id,
+    #    "download_link": download_link
+    #})
 
     return redirect("/orders")
 
@@ -245,3 +245,4 @@ def confirm(order_id):
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000, debug=True)
+
