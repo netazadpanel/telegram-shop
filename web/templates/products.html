@@ -1,0 +1,78 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<h3 class="mb-4">مدیریت محصولات</h3>
+
+<!-- محصولات تک -->
+<div class="card mb-4 shadow-sm">
+    <div class="card-header bg-primary text-white">
+        محصولات تک
+    </div>
+    <div class="card-body">
+        {% if single %}
+            <ul class="list-group">
+                {% for p in single %}
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <span>{{ p[1] }}</span>
+                        <a href="/delete/single/{{ p[0] }}" class="btn btn-sm btn-danger">حذف</a>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p class="text-muted">هیچ محصولی موجود نیست.</p>
+        {% endif %}
+    </div>
+</div>
+
+<!-- محصولات چند -->
+<div class="card mb-4 shadow-sm">
+    <div class="card-header bg-success text-white">
+        محصولات چند
+    </div>
+    <div class="card-body">
+        {% if multi %}
+            <ul class="list-group">
+                {% for p in multi %}
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <span>{{ p[1] }}</span>
+                        <a href="/delete/multi/{{ p[0] }}" class="btn btn-sm btn-danger">حذف</a>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p class="text-muted">هیچ محصولی موجود نیست.</p>
+        {% endif %}
+    </div>
+</div>
+
+<!-- افزودن محصول -->
+<div class="card shadow-sm">
+    <div class="card-header bg-dark text-white">
+        افزودن محصول جدید
+    </div>
+    <div class="card-body">
+        <form method="POST" action="/add">
+            <div class="mb-3">
+                <label class="form-label">دسته</label>
+                <select name="category" class="form-select">
+                    <option value="single">تک محصول</option>
+                    <option value="multi">چند محصول</option>
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">لینک عکس</label>
+                <input type="text" name="image" class="form-control">
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">لینک دانلود</label>
+                <input type="text" name="link" class="form-control">
+            </div>
+
+            <button class="btn btn-primary w-100">افزودن محصول</button>
+        </form>
+    </div>
+</div>
+
+{% endblock %}
