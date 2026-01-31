@@ -1,12 +1,11 @@
 from flask import Flask, render_template, request, redirect, session, jsonify
 import sqlite3
-import requests
 from config import ADMIN_PASSWORD
 
 app = Flask(__name__)
 app.secret_key = "super_secret_key"
 
-DB_PATH = "store.db"
+DB_PATH = "database/store.db"
 
 
 # ---------------------- دیتابیس ----------------------
@@ -16,15 +15,7 @@ def db():
 
 
 # ---------------------- ورود ----------------------
-@app.route("/", methods=["GET", "POST"])
-def login():
-    try:
-        conn = db()
-        conn.close()
-    except Exception as e:
-        return str(e)
 
-    return "OK"
 @app.route("/", methods=["GET", "POST"])
 def login():
     if request.method == "POST":
@@ -191,20 +182,11 @@ def api_update_order():
 
 
 # ---------------------- API: ارسال لینک دانلود به کاربر ----------------------
+# (فعلاً بدون ارسال به بات، تا Railway کرش نکند)
 
 @app.route("/api/send_download", methods=["POST"])
 def api_send_download():
     data = request.json
-
-    user_id = data["user_id"]
-    download_link = data["download_link"]
-
-    # ارسال به بات
-   # requests.post("http://127.0.0.1:8000/send_download", json={
-     #   "user_id": user_id,
-     #   "download_link": download_link
-    #})
-
     return jsonify({"status": "sent"})
 
 
@@ -241,18 +223,10 @@ def confirm(order_id):
     conn.commit()
     conn.close()
 
-   # requests.post("http://127.0.0.1:5000/api/send_download", json={
-   #     "user_id": user_id,
-    #    "download_link": download_link
-    #})
-
     return redirect("/orders")
 
 
 # ---------------------- اجرا ----------------------
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=5000, debug=True)
-
-
-
+    app.run(host="0.0.0.0", port=5000)
