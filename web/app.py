@@ -3,6 +3,7 @@ import sqlite3
 from config import ADMIN_PASSWORD
 
 app = Flask(__name__)
+print("FLASK STARTED")
 app.secret_key = "super_secret_key"
 
 DB_PATH = "database/store.db"
@@ -230,3 +231,4 @@ def confirm(order_id):
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000)
+
